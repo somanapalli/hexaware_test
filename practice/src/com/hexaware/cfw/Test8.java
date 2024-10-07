@@ -10,7 +10,7 @@ public class Test8 {
 		
 		SortedMap<Integer, String> m = new TreeMap<Integer,String>(new ComparatorImpl());
 		
-		m.put(100, "rk");
+		m.put(100, "ram");
 		m.put(2000, "hexaware");
 		m.put(1300, "amit");
 		m.put(40, "hemanth");
