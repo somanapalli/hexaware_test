@@ -1,0 +1,51 @@
+heuristic:
+``````````
+import java.util.ArrayList;
+import java.util.List;
+
+public class TravelingSalesmanHeuristic {
+
+    private static final int NUM_CITIES = 5;
+    private static int[][] distanceMatrix = {
+        { 0, 10, 15, 20, 25 },
+        { 10, 0, 35, 25, 30 },
+        { 15, 35, 0, 30, 20 },
+        { 20, 25, 30, 0, 15 },
+        { 25, 30, 20, 15, 0 }
+    };
+
+    public static void main(String[] args) {
+        // Start from the first city (index 0)
+        int startCity = 0;
+        List<Integer> visitedCities = new ArrayList<>();
+        visitedCities.add(startCity);
+
+        int currentCity = startCity;
+        int totalDistance = 0;
+
+        // Heuristic: Visit nearest unvisited city
+        while (visitedCities.size() < NUM_CITIES) {
+            int nearestCity = -1;
+            int nearestDistance = Integer.MAX_VALUE;
+
+            // Find the nearest unvisited city
+            for (int city = 0; city < NUM_CITIES; city++) {
+                if (!visitedCities.contains(city) && distanceMatrix[currentCity][city] < nearestDistance) {
+                    nearestCity = city;
+                    nearestDistance = distanceMatrix[currentCity][city];
+                }
+            }
+
+            // Move to the nearest city
+            totalDistance += nearestDistance;
+            visitedCities.add(nearestCity);
+            currentCity = nearestCity;
+        }
+
+        // Return to the start city to complete the tour
+        totalDistance += distanceMatrix[currentCity][startCity];
+
+        System.out.println("Visited Cities: " + visitedCities);
+        System.out.println("Total Distance: " + totalDistance);
+    }
+}
